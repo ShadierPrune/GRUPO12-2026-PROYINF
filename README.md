@@ -1,4 +1,4 @@
-# Grupo 12 (InforMatías++)
+# Grupo 12 (InforMatías+++)
 
 Este es el repositorio del Grupo 12, cuyos integrantes son:
 
@@ -10,6 +10,8 @@ Este es el repositorio del Grupo 12, cuyos integrantes son:
 -  **Tutor**: Alex Urrutia
 -  **Profesor**: Ricardo Salas - paralelo 200
 -  **Profesora**: Anelis Pereira - paralelo 201
+
+Se continuará el proyecto base del Grupo 14 de Analisis y Diseño de Software, conformado por Matías García, Matías Rojas, Martín Grandon y Felipe Parra. El repositorio es el mismo.
 
 ## Wiki
 
