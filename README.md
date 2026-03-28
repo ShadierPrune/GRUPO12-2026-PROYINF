@@ -1,14 +1,15 @@
-# Grupo 14 (InforMatías++)
+# Grupo 12 (InforMatías++)
 
-Este es el repositorio del Grupo 14, cuyos integrantes son:
+Este es el repositorio del Grupo 12, cuyos integrantes son:
 
 -  Matías García Silva - 202373599-k - paralelo 200
 -  Matías Vicente Rojas Nahuelcura - 202373617-1 - paralelo 200
--  Martín Alonso Grandon Coronado - 202373588-4 - paralelo 201
+-  Martín Alonso Grandon Coronado - 202373588-4 - paralelo 200
 -  Felipe Santiago Parra Díaz - 202373568-k - paralelo 200
--  **Tutor**: Benjamín Daza
+-  Matias Antonio Guajardo Fuentes - 202373549-3 - paralelo 201
+-  **Tutor**: Alex Urrutia
 -  **Profesor**: Ricardo Salas - paralelo 200
--  **Profesora**: Luz Chourio - paralelo 201
+-  **Profesora**: Anelis Pereira - paralelo 201
 
 ## Wiki
 
