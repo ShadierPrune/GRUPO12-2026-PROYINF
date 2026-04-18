@@ -1,8 +1,8 @@
-const pool = require('./db');
+import pool from "./db.js";
 
 const initFinancialDB = async () => {
   try {
-    console.log('Verificando tablas de base de datos');
+    console.log("Verificando tablas de base de datos");
 
     await pool.query(`
       CREATE TABLE IF NOT EXISTS financial_data (
@@ -37,10 +37,10 @@ const initFinancialDB = async () => {
       await pool.query(q);
     }
 
-    console.log('Base de datos inicializada correctamente.');
+    console.log("Base de datos inicializada correctamente.");
   } catch (err) {
-    console.error('Error inicializando DB:', err);
+    console.error("Error inicializando DB:", err);
   }
 };
 
-module.exports = initFinancialDB;
+export default initFinancialDB;

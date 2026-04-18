@@ -1,9 +1,10 @@
 {
   "name": "docker-node-app",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/server.js",
+  "type": "module",
   "scripts": {
-    "start": "node index.js"
+    "start": "node src/server.js"
   },
   "dependencies": {
     "@google-cloud/documentai": "^9.5.0",

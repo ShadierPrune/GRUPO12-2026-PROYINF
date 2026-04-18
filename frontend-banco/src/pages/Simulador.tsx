@@ -9,6 +9,10 @@ import {
   Percent,
   TrendingUp,
   History,
+  Loader2,
+  CheckCircle,
+  X,
+  Sparkles
 } from "lucide-react";
 import Header from "@/components/header";
 
@@ -45,6 +49,10 @@ export default function Simulador() {
   const [intereses, setIntereses] = useState(0);
   const [cuota, setCuota] = useState(0);
   const [idSimulacion, setIdSimulacion] = useState<string>("");
+
+  // --- Estados para el Modal de Oferta Personalizada ---
+  const [showModal, setShowModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   // --- Fecha de fin ---
   const hoy = new Date();
@@ -121,11 +129,21 @@ export default function Simulador() {
     setTasa(simulation.tasa);
   };
 
+  // --- Manejar apertura del modal de oferta ---
+  const handleGenerateOffer = () => {
+    setShowModal(true);
+    setIsLoading(true);
+    // Simulamos un tiempo de carga de 2.5 segundos
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2500);
+  };
+
   // --- Render ---
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen relative">
       <Header />
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center py-10">
         <div className="w-full max-w-4xl mx-auto bg-white shadow-2xl rounded-2xl p-6 md:p-10 border border-gray-200">
           <header className="text-center mb-8 md:mb-10">
             <h1 className="text-3xl md:text-4xl font-bold text-gray-800">
@@ -233,7 +251,7 @@ export default function Simulador() {
                   </div>
                 </div>
 
-                <div className="bg-white rounded-xl p-4 text-center mt-4">
+                <div className="bg-white rounded-xl p-4 text-center mt-4 border border-yellow-100">
                   <p className="text-gray-600 text-sm">
                     Tu pago mensual estimado:
                   </p>
@@ -246,16 +264,29 @@ export default function Simulador() {
                 </div>
               </div>
 
-              <Button
-                size="lg"
-                className="mt-6"
-                onClick={() => {
-                  localStorage.setItem("fromSimulador", "true");
-                  navigate("/form");
-                }}
-              >
-                ¡Quiero este crédito!
-              </Button>
+              <div className="flex flex-col gap-3 mt-6">
+                <Button
+                  size="lg"
+                  className="w-full"
+                  onClick={() => {
+                    localStorage.setItem("fromSimulador", "true");
+                    navigate("/form");
+                  }}
+                >
+                  ¡Quiero este crédito!
+                </Button>
+                
+                {/* Nuevo botón para la oferta personalizada */}
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="w-full border-yellow-600 text-yellow-700 hover:bg-yellow-100 flex items-center gap-2"
+                  onClick={handleGenerateOffer}
+                >
+                  <Sparkles className="w-5 h-5" />
+                  Generar oferta personalizada
+                </Button>
+              </div>
             </aside>
           </main>
 
@@ -281,6 +312,79 @@ export default function Simulador() {
           )}
         </div>
       </div>
+
+      {/* MODAL DE OFERTA PERSONALIZADA */}
+      {showModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+          <div className="bg-white rounded-2xl p-6 md:p-8 max-w-sm w-full shadow-2xl relative transition-all">
+            {/* Botón de cerrar */}
+            <button
+              onClick={() => setShowModal(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-700"
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            {isLoading ? (
+              // ESTADO: CARGANDO
+              <div className="flex flex-col items-center justify-center py-10 text-center">
+                <Loader2 className="w-16 h-16 animate-spin text-yellow-500 mb-6" />
+                <h3 className="text-xl font-bold text-gray-800 animate-pulse">
+                  Analizando tu perfil...
+                </h3>
+                <p className="text-sm text-gray-500 mt-2">
+                  Buscando la mejor oferta disponible en el sistema.
+                </p>
+              </div>
+            ) : (
+              // ESTADO: OFERTA GENERADA (HARDCODEADA)
+              <div className="flex flex-col items-center pt-4 pb-2 text-center animate-in fade-in zoom-in duration-300">
+                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
+                  <CheckCircle className="w-10 h-10 text-green-600" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-800 mb-1">
+                  ¡Oferta Pre-Aprobada!
+                </h3>
+                <p className="text-gray-500 text-sm mb-6">
+                  Basado en tu perfil, esto es lo que podemos ofrecerte:
+                </p>
+
+                <div className="w-full bg-gray-50 rounded-xl p-5 mb-6 space-y-4 border border-gray-100 text-left">
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-600">Monto:</span>
+                    <span className="font-bold text-gray-900">{formatCurrencyCLP(4500000)}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-600">Plazo:</span>
+                    <span className="font-bold text-gray-900">36 meses</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-600">Cuota:</span>
+                    <span className="font-bold text-yellow-600 text-lg">{formatCurrencyCLP(152300)}</span>
+                  </div>
+                  
+                  <div className="pt-4 border-t border-gray-200 flex justify-between items-center">
+                    <span className="text-sm font-semibold text-gray-800">Probabilidad de aprobación:</span>
+                    <span className="text-xl font-black text-green-500">92%</span>
+                  </div>
+                </div>
+
+                <Button 
+                  className="w-full" 
+                  size="lg"
+                  onClick={() => {
+                    setShowModal(false);
+                    localStorage.setItem("fromSimulador", "true");
+                    navigate("/form");
+                  }}
+                >
+                  Continuar con esta oferta
+                </Button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
