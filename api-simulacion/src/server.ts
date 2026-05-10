@@ -8,7 +8,7 @@ const PORT = 3000;
 
 app.use(cors());
 app.use(express.json());
-
+ 
 // LÓGICA DE NEGOCIO 
 function calcularCuotaAPI(monto: number, plazo: number, taza: number) {
     const tasaInteresEfectiva = taza / 100;
