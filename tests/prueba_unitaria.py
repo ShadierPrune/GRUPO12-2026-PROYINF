@@ -6,7 +6,7 @@ class TestProyecto(unittest.TestCase):
     def setUpClass(cls):
 
         cls.URL = "http://localhost:4000"
-
+        cls.URL_simulacion = f"{cls.URL}/api/v1/simulacion"
     # Test de la HU01: Simulación de préstamo
     def test_simulacion_prestamo(self):
         print("\nCaso de prueba HU01: Simulación de préstamo", end=" ")
@@ -56,7 +56,7 @@ class TestProyecto(unittest.TestCase):
             "guardar": True
         }
         
-        response = requests.post(self.URL, json=payload)
+        response = requests.post(self.URL_simulacion, json=payload)
         data = response.json()
         
         self.assertEqual(response.status_code, 200)
@@ -79,7 +79,7 @@ class TestProyecto(unittest.TestCase):
             "guardar": False
         }
         
-        response = requests.post(self.URL, json=payload)
+        response = requests.post(self.URL_simulacion, json=payload)
         data = response.json()
         
         self.assertEqual(response.status_code, 200)
