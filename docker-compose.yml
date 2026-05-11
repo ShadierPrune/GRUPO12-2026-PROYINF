@@ -51,9 +51,9 @@ services:
     ports:
       - "4500:4000" # ← NUEVO PUERTO
     environment:
-      - GOOGLE_APPLICATION_CREDENTIALS=/app/key.json
+      - GOOGLE_APPLICATION_CREDENTIALS=/key.json
     volumes:
-      - ./key.json:/app/key.json
+      - ./key.json:/key.json
 
   postgres_db:
     image: postgres:15-alpine

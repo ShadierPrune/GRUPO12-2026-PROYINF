@@ -4,4 +4,6 @@ node_modules
 /api-simulacion/node_modules
 /ocr-api/node_modules
 /auth-api/.env
-
+.env
+key.json
+__pycache__/
