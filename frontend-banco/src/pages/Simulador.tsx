@@ -12,7 +12,8 @@ import {
   Loader2,
   CheckCircle,
   X,
-  Sparkles
+  Sparkles,
+  PieChart // <-- NUEVO ÍCONO AÑADIDO
 } from "lucide-react";
 import Header from "@/components/header";
 
@@ -49,6 +50,9 @@ export default function Simulador() {
   const [intereses, setIntereses] = useState(0);
   const [cuota, setCuota] = useState(0);
   const [idSimulacion, setIdSimulacion] = useState<string>("");
+  
+  // --- NUEVO ESTADO: Probabilidad de Aprobación ---
+  const [probabilidad, setProbabilidad] = useState(0);
 
   // --- Estados para el Modal de Oferta Personalizada ---
   const [showModal, setShowModal] = useState(false);
@@ -92,6 +96,7 @@ export default function Simulador() {
         setTotalPagado(data.total_pagado);
         setIntereses(data.intereses_totales);
         setIdSimulacion(data.id_simulacion);
+        // NOTA: Aquí iría el setProbabilidad(data.probabilidad) en el futuro
       } catch (error) {
         console.error("❌ Falló la llamada a la API:", error);
         // fallback local si la API falla
@@ -103,6 +108,21 @@ export default function Simulador() {
             : monto / plazo;
         const total = cuotaLocal * plazo;
         const interes = total - monto;
+
+        // --- INICIO CÁLCULO SIMULADO DE PROBABILIDAD ---
+        // Algoritmo mock: Más monto = menos probabilidad. Más plazo = un poco más de probabilidad.
+        const probabilidadBase = 85; 
+        const factorMonto = (monto / 5000000) * 20; // Resta hasta 20 puntos por monto alto
+        const factorPlazo = (plazo / 60) * 10;      // Suma hasta 10 puntos por más plazo (cuota menor)
+        
+        let probCalculada = probabilidadBase - factorMonto + factorPlazo;
+        
+        // Mantener dentro de rangos realistas (ej: entre 40% y 98%)
+        probCalculada = Math.max(40, Math.min(98, probCalculada));
+        
+        setProbabilidad(Math.round(probCalculada));
+        // --- FIN CÁLCULO SIMULADO ---
+
         setCuota(cuotaLocal);
         setTotalPagado(total);
         setIntereses(interes);
@@ -137,6 +157,13 @@ export default function Simulador() {
     setTimeout(() => {
       setIsLoading(false);
     }, 2500);
+  };
+
+  // --- Color dinámico para la probabilidad ---
+  const getProbabilityColor = (prob: number) => {
+    if (prob >= 80) return "text-green-600 bg-green-50 border-green-200";
+    if (prob >= 60) return "text-yellow-600 bg-yellow-50 border-yellow-200";
+    return "text-red-600 bg-red-50 border-red-200";
   };
 
   // --- Render ---
@@ -262,6 +289,15 @@ export default function Simulador() {
                     Última cuota estimada: {FechaFin}
                   </p>
                 </div>
+
+                {/* NUEVA SECCIÓN: Probabilidad de Aprobación */}
+                <div className={`mt-4 p-4 rounded-xl border flex items-center justify-between transition-colors duration-300 ${getProbabilityColor(probabilidad)}`}>
+                  <div className="flex items-center gap-2">
+                    <PieChart className="w-5 h-5 opacity-80" />
+                    <span className="text-sm font-semibold opacity-90">Probabilidad de aprobación</span>
+                  </div>
+                  <span className="text-2xl font-black">{probabilidad}%</span>
+                </div>
               </div>
 
               <div className="flex flex-col gap-3 mt-6">
@@ -276,7 +312,7 @@ export default function Simulador() {
                   ¡Quiero este crédito!
                 </Button>
                 
-                {/* Nuevo botón para la oferta personalizada */}
+                {/* Botón para la oferta personalizada */}
                 <Button
                   size="lg"
                   variant="outline"
