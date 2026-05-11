@@ -6,6 +6,7 @@ HU que probaremos:
 - HU01: Simulación de préstamo
 - HU06: Guardar simulación (vemos 2 versiones que son casi lo mismo)
 - HU04: Ingreso de datos a través de imágenes 
+- HU02: Solicitud del préstamo
 
 Se ejecuta con la siguiente linea suponiendo que se está en la carpeta del proyecto:
 
