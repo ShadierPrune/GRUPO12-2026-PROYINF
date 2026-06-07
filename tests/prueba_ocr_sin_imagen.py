@@ -31,6 +31,10 @@ class TestOCRError(unittest.TestCase):
         # Comprobamos que devuelva el mensaje exacto de error programado
         self.assertIn("error", body)
         self.assertEqual(body["error"], "No se recibió ninguna imagen.")
+        
+    @classmethod
+    def tearDownClass(cls):
+      print("\nSe terminaron de revisar las pruebas")
 
 if __name__ == '__main__':
     unittest.main()

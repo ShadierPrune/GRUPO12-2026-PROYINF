@@ -27,6 +27,10 @@ class TestOCRExitosa(unittest.TestCase):
         
         # Debe devolver el JSON con el resultado del texto extraído
         self.assertIn("resultado", respuesta.json())
+        
+    @classmethod
+    def tearDownClass(cls):
+        print("\nSe terminaron de revisar las pruebas")
 
 if __name__ == '__main__':
     unittest.main()
