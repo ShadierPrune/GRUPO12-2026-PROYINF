@@ -7,9 +7,7 @@ RUN npm install
 
 COPY . .
 
-
-
 EXPOSE 3000
 
-# Ejecuta directamente tu servidor
-CMD ["node", "src/server.js"]
+# Ejecutamos el script de desarrollo que lee directamente el .ts
+CMD ["npm", "run", "dev"]
