@@ -5,7 +5,7 @@ export class SimulacionController {
     private service = new SimulacionService();
 
     crearSimulacion = async (req: Request, res: Response): Promise<any> => {
-        const { monto, plazo, taza } = req.body; // Mantenemos "taza" para no romper el contrato del frontend actual
+        const { monto, plazo, taza, guardar } = req.body; // Mantenemos "taza" para no romper el contrato del frontend actual
 
         // Validación de tipos (Sanitización rápida de entrada)
         if (typeof monto !== 'number' || typeof plazo !== 'number' || typeof taza !== 'number') {
@@ -14,10 +14,10 @@ export class SimulacionController {
 
         try {
             // Orquestación hacia la capa de negocio determinista
-            const resultado = await this.service.procesarSimulacionDeterminista(monto, plazo, taza);
+            const resultado = await this.service.procesarSimulacionDeterminista(monto, plazo, taza, guardar);
             
             return res.json({
-                mensaje: "Simulación guardada con éxito",
+                mensaje: guardar ? "Simulación guardada con éxito" : "Simulación procesada sin guardar",
                 ...resultado
             });
         } catch (error) {

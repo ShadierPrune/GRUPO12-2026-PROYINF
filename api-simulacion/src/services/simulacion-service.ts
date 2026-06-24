@@ -4,7 +4,7 @@ export class SimulacionService {
     private repository = new SimulacionRepository();
 
     // MODALIDAD DETERMINISTA
-    async procesarSimulacionDeterminista(monto: number, plazo: number, tasa: number) {
+    async procesarSimulacionDeterminista(monto: number, plazo: number, tasa: number, guardar: boolean = true) {
         // Ejecutar el cálculo matemático financiero
         const tasaInteresEfectiva = tasa / 100;
         const cuota = tasaInteresEfectiva > 0
@@ -20,22 +20,27 @@ export class SimulacionService {
         };
 
         // Preparar los datos para la persistencia
-        const id_simulacion = `SIM-${Date.now()}-${Math.random().toString(36).substring(2, 9).toUpperCase()}`;
-        const dataDB: ISimulacionDB = {
-            id_simulacion,
-            monto,
-            plazo,
-            tasa,
-            cuota_mensual: resultados.cuota_mensual,
-            total_pagado: resultados.total_pagado,
-            fecha_creacion: new Date()
-        };
+        if (guardar){
+            const id_simulacion = `SIM-${Date.now()}-${Math.random().toString(36).substring(2, 9).toUpperCase()}`;
+            const dataDB: ISimulacionDB = {
+                id_simulacion,
+                monto,
+                plazo,
+                tasa,
+                cuota_mensual: resultados.cuota_mensual,
+                total_pagado: resultados.total_pagado,
+                fecha_creacion: new Date()
+            };
 
-        // Guardar en BD usando el repositorio
-        await this.repository.guardar(dataDB);
+            // Guardar en BD usando el repositorio
+            await this.repository.guardar(dataDB);
 
+            return {
+                id_simulacion,
+                ...resultados
+            };
+        }
         return {
-            id_simulacion,
             ...resultados
         };
     }

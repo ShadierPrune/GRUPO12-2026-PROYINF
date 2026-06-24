@@ -15,6 +15,18 @@ const initFinancialDB = async () => {
       )
     `);
 
+    await pool.query(`
+        CREATE TABLE IF NOT EXISTS simulaciones (
+            id_simulacion VARCHAR(100) PRIMARY KEY,
+            monto NUMERIC NOT NULL,
+            plazo INTEGER NOT NULL,
+            tasa NUMERIC NOT NULL,
+            cuota_mensual NUMERIC NOT NULL,
+            total_pagado NUMERIC NOT NULL,
+            fecha_creacion TIMESTAMP NOT NULL
+        );
+    `);
+
     const queries = [
       // El ideal
       `INSERT INTO financial_data (rut, nombre, ingreso_mensual, deuda_total, antiguedad_laboral, morosidad) 
