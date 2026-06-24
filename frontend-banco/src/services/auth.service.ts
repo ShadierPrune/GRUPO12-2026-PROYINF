@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:4000/auth";
+const API_URL = "http://localhost:3000/api/auth";
 
 export async function loginService(rut: string, password: string) {
   const res = await fetch(`${API_URL}/login`, {

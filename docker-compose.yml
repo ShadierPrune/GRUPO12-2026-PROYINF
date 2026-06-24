@@ -12,9 +12,11 @@ services:
       - DB_PASSWORD=password
       - DB_NAME=mydb
       - OCR_SERVICE_URL=http://ocr-service:4000
+      - AUTH_URL=http://api-auth:4000
     depends_on:
       - postgres_db
       - ocr-service
+      - api-auth
     volumes:
       - ./:/app
       - /app/node_modules
@@ -34,6 +36,21 @@ services:
       - DB_USER=user
       - DB_PASSWORD=password
       - DB_NAME=mydb
+
+  api-auth:
+    build: ./auth-api
+    ports:
+      - "4001:4000"
+    restart: always
+    environment:
+      - PORT=4001
+      - DB_HOST=postgres_db 
+      - DB_USER=user
+      - DB_PASSWORD=password
+      - DB_NAME=mydb
+      - SECRET_JWT_KEY=super_secreto_para_el_proyecto_2026
+    depends_on:
+      - postgres_db
 
   frontend:
     build:
