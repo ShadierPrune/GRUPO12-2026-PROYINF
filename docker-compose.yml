@@ -57,6 +57,9 @@ services:
       - "4500:4000" # ← NUEVO PUERTO
     environment:
       - GOOGLE_APPLICATION_CREDENTIALS=/key.json
+      - GOOGLE_PROJECT_ID=project-74e5a949-95ab-4c28-954
+      - GOOGLE_LOCATION=us
+      - GOOGLE_PROCESSOR_ID=ba12204d6242a3e1
     volumes:
       - ./key.json:/key.json
 

@@ -50,17 +50,7 @@ async function procesarImagen(encodedImage, mimeType) {
 
 // Interfaz web simple para probar el OCR desde el navegador
 app.get('/', (req, res) => {
-  res.send(`
-    <html>
-      <body style="font-family: Arial, sans-serif; padding: 40px;">
-        <h2>Prueba rápida de OCR</h2>
-        <form action="/process" method="POST" enctype="multipart/form-data">
-          <input type="file" name="imagenCedula" accept="image/*" required /><br><br>
-          <button type="submit" style="padding: 10px 20px; font-size: 16px; cursor: pointer;">Extraer Datos</button>
-        </form>
-      </body>
-    </html>
-  `);
+    res.sendFile(path.resolve(__dirname, 'formulario.html'));
 });
 
 // Endpoint interno para procesar
