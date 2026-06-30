@@ -3,7 +3,7 @@ import axios from "axios";
 
 // Dirección del microservicio (definida en tu .env o docker-compose)
 const SIMULACION_URL =
-  process.env.SIMULACION_URL || "http://api-simulacion:4002";
+  process.env.SIMULACION_URL || "http://api-simulacion:3000";
 
 export async function callSimulacionAPI(req, res, path, method = "POST") {
   try {
