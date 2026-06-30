@@ -4,6 +4,7 @@ import simulacionRoutes from './routes/simulacion-routes';
 
 const app = express();
 const PORT = 3000; 
+app.disable("x-powered-by");
 
 app.use(cors({
   origin: 'http://localhost:5173', 

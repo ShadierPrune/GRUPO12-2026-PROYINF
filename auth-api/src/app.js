@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 
 const app = express();
+app.disable("x-powered-by");
 app.use(
   cors({
     origin: ["http://localhost:5173", "http://localhost:3000"], // ✅ ambos puertos permitidos

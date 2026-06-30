@@ -4,7 +4,7 @@ const multer = require("multer");
 const path = require("path");
 const app = express();
 const port = 4002;
-
+app.disable("x-powered-by");
 //Importamos la funcion quickstart pal OCR
 const { quickstart } = require("./OCR/ocr.js");
 //config de multer para almacenamiento en RAM

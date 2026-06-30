@@ -4,7 +4,7 @@ const { DocumentProcessorServiceClient } = require('@google-cloud/documentai').v
 const path = require('path');
 const app = express();
 const port = 4000;
-
+app.disable("x-powered-by");
 // Configuración de Multer (Memoria)
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });

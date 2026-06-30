@@ -3,7 +3,7 @@ import cors from 'cors';
 import signRoutes from './routes/sign.routes.js';
 
 const app = express();
-
+app.disable("x-powered-by");
 // CORS permitido para frontend y API
 app.use(cors({ origin: ['http://localhost:5173', 'http://localhost:3000'], credentials: true }));
 
