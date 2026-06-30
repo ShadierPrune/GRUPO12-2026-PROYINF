@@ -1,0 +1,6 @@
+projectKey=ProyectoINF-Grupo12-2026-1
+serverUrl=http://localhost:9000
+serverVersion=26.6.0.123539
+dashboardUrl=http://localhost:9000/dashboard?id=ProyectoINF-Grupo12-2026-1
+ceTaskId=e2c665e6-ad71-49f3-a3ad-4dd68c57b82b
+ceTaskUrl=http://localhost:9000/api/ce/task?id=e2c665e6-ad71-49f3-a3ad-4dd68c57b82b
